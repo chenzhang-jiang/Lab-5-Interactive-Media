@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Postmarks from Canada — Sound Map</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="topbar-brand">
+            ✳ POSTMARKS FROM CANADA
+        </div>
+
+        <div class="topbar-description">
+            Every place leaves a little sound behind.
+            <br>
+            Choose a point on the map to receive a postcard.
+        </div>
+    </header>
+
+    <main class="atlas">
+        <div class="map-scroller">
+            <div class="map-stage" id="mapStage">
+
+                <img
+                    src="assets/images/canada-map.jpg"
+                    class="map-image"
+                    alt="Map of Canada"
+                >
+
+                <svg
+                    id="mapVectors"
+                    class="map-vectors"
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                >
+                    <g id="labelLines"></g>
+
+                    <polyline
+                        id="routeStroke"
+                        points=""
+                        fill="none"
+                        stroke="#a24e3f"
+                        stroke-width=".26"
+                        stroke-dasharray=".7 .6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        pathLength="100"
+                    />
+                </svg>
+
+                <div id="pins" class="pins"></div>
+
+                <div id="finishArea" class="finish-area" hidden>
+                    <button id="journeyBtn">
+                        Play the 85-second sound journey ↗
+                    </button>
+                </div>
+
+                <button
+                    id="creditsBtn"
+                    class="credits-icon"
+                    title="Image and sound credits"
+                    aria-label="Image and sound credits"
+                >
+                    ⓘ
+                </button>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="overlay" class="overlay" hidden>
+        <div
+            class="postcard-window"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Interactive sound postcard"
+        >
+
+            <button id="closeBtn" class="close" aria-label="Close postcard">
+                ×
+            </button>
+
+            <div class="flip-stage">
+                <div id="postcard" class="postcard">
+
+                    <div class="card-side front">
+                        <img id="frontCardImage" alt="Front of postcard">
+                    </div>
+
+                    <div class="card-side back">
+                        <img id="backCardImage" alt="Back of postcard with poetry">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-bar">
+
+                <div class="audio-controls">
+                    <button id="playBtn" aria-label="Play or pause sound">
+                        Ⅱ
+                    </button>
+
+                    <div class="audio-meta">
+                        <span id="playStatus">10 SECOND SOUNDSCAPE</span>
+
+                        <input
+                            id="audioSeek"
+                            class="audio-seek"
+                            type="range"
+                            min="0"
+                            max="10"
+                            step="0.1"
+                            value="0"
+                            aria-label="Move through the ten-second sound"
+                        >
+                    </div>
+
+                    <span id="audioTime">0:00 / 0:10</span>
+                </div>
+
+                <div class="btns">
+                    <button id="flipBtn">FLIP ↻</button>
+                    <button id="collectBtn" class="collect-btn">
+                        COLLECT ✳
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="markAnimation" class="mark-animation" aria-hidden="true">
+        ✳
+        <small>POSTMARKED</small>
+    </div>
+
+    <div id="infoOverlay" class="overlay info" hidden>
+        <div class="info-panel">
+
+            <button id="infoClose" class="close" aria-label="Close credits">
+                ×
+            </button>
+
+            <h2>Image & sound credits</h2>
+            <div id="infoContent"></div>
+
+        </div>
+    </div>
+
+    <div id="journeyOverlay" class="overlay journey" hidden>
+        <div class="journey-panel">
+
+            <button id="journeyClose" class="close" aria-label="Close journey">
+                ×
+            </button>
+
+            <h2>A journey across Canada</h2>
+
+            <div class="journey-photo">
+                <img id="journeyImage" alt="Current destination">
+                <div id="journeyPlace"></div>
+            </div>
+
+            <div class="journey-bottom">
+                <button id="journeyPlay">Ⅱ PAUSE</button>
+
+                <input
+                    id="journeySeek"
+                    class="journey-seek"
+                    type="range"
+                    min="0"
+                    max="85"
+                    step="0.1"
+                    value="0"
+                    aria-label="Move through the 85-second sound journey"
+                >
+
+                <span id="journeyClock">0:00 / 1:25</span>
+            </div>
+
+        </div>
+    </div>
+
+    <audio id="sceneAudio" preload="none"></audio>
+
+    <audio
+        id="journeyAudio"
+        src="assets/audio/journey.mp3"
+        preload="none"
+    ></audio>
+
+    <audio
+        id="stampAudio"
+        src="assets/audio/stamp.wav"
+        preload="auto"
+    ></audio>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
